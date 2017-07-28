@@ -66,9 +66,9 @@ def plotMidText(cntrPt, parentPt, txtString):
     yMid = (parentPt[1] - cntrPt[1]) / 2.0 + cntrPt[1]
     createPlot.ax1.text(xMid, yMid, txtString)
 
+#关于坐标计算方式，详见http://www.cnblogs.com/fantasy01/p/4595902.html
 def plotTree(myTree, parentPt, nodeTxt):
     numLeafs = getNumLeafs(myTree)
-    dep = getTreeDepth(myTree)
     tempList = list(myTree.keys())
     firstStr = tempList[0]
     cntrPt = (plotTree.xOff + (1.0 + float(numLeafs)) / (2.0 * plotTree.totalW), plotTree.yOff)
