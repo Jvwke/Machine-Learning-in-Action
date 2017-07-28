@@ -1,5 +1,7 @@
 from math import log
+import pickle
 import operator
+import treePlotter
 
 def calcShannonEnt(dataSet):
     n = len(dataSet)
@@ -77,6 +79,28 @@ def createTree(dataSet, labels):
         myTree[bestFeatLabel][value] = createTree(splitDataSet(dataSet, bestFeat, value), subLabels)
     return myTree
 
+def classify(inputTree, featLabels, testVec):
+    tempList = list(inputTree.keys())
+    firstStr = tempList[0]
+    secondDict = inputTree[firstStr]
+    featIndex = featLabels.index(firstStr)
+    for key in secondDict.keys():
+        if testVec[featIndex] == key:
+            if type(secondDict[key]).__name__ == 'dict':
+                classLabel = classify(secondDict[key], featLabels, testVec)
+            else:
+                classLabel = secondDict[key]
+    return classLabel
+
+def storeTree(inputTree, filename):
+    fw = open(filename, 'wb')
+    pickle.dump(inputTree, fw)
+    fw.close()
+
+def grabTree(filename):
+    fr = open(filename, 'rb')
+    return pickle.load(fr)
+
 if __name__ == '__main__':
     myDat, labels = createDataSet()
     entropy = calcShannonEnt(myDat)
@@ -87,3 +111,24 @@ if __name__ == '__main__':
     print(bestFeature)
     myTree = createTree(myDat, labels)
     print(myTree)
+
+    #test
+    myDat, labels = createDataSet()
+    myTree = treePlotter.retrieveTree(0)
+    result = classify(myTree, labels, [1, 0])
+    print(result)
+    result = classify(myTree, labels, [1, 1])
+    print(result)
+
+    #store
+    storeTree(myTree, 'classifierStorage.txt')
+    mt = grabTree('classifierStorage.txt')
+    print(mt)
+
+    #lenses
+    fr = open('lenses.txt')
+    lenses = [inst.strip().split('\t') for inst in fr.readlines()]
+    lensesLabels = ['age', 'prescript', 'astigmatic', 'tearRate']
+    lensesTree = createTree(lenses, lensesLabels)
+    print(lensesTree)
+    treePlotter.createPlot(lensesTree)
