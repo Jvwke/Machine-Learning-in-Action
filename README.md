@@ -1,37 +1,27 @@
-# Machine Learning in Action
+## 机器学习实战 (Machine Learning in Action)
 
-## PART 1: CLASSIFICATION
+### 第一部分：分类
 
-### Chapter02: Classifying with k-Nearest Neighbors 
+- - [x] 第2章 - k-近邻算法
+- - [x] 第3章 - 决策树
+- - [x] 第4章 - 朴素贝叶斯
+- - [x] 第5章 - Logistic回归
+- 第6章 - 支持向量机
+- 第7章 - AdaBoost元算法
 
-### Chapter03: Splitting datasets one feature at a time: decision trees
+### 第二部分：回归方法
 
-### Chapter04: Classifying with probability theory: naïve Bayes
+- 第8章 - 线性回归
+- 第9章 - 树回归
 
-### Chapter05: Logistic regression
+### 第三部分：无监督学习
 
-### Chapter06: Support vector machines
+- 第10章 - K-均值聚类方法
+- 第11章 - Apriori算法进行关联分析
+- 第12章 - FP-growth算法发现频繁项集
 
-### Chapter07: Improving classification with the AdaBoost meta-algorithm
+### 第四部分：其他工具
 
-## PART 2: FORECASTING NUMERIC VALUES WITH REGRESSION
-
-### Chapter08: Predicting numeric values: regression
-
-### Chapter09: Tree-based regression
-
-## PART 3: UNSUPERVISED LEARNING
-
-### Chapter10: Grouping unlabeled items using k-means clustering
-
-### Chapter11: Association analysis with the Apriori algorithm
-
-### Chapter12: Efficiently finding frequent itemsets with FP-growth
-
-## PART 4: ADDITIONAL TOOLS
-
-### Chpater13: Using principal component analysis to simplify data
-
-### Chapter14: Simplifying data with the singular value decomposition
-
-### Chapter15: Big data and MapReduce
+- 第13章 - PCA
+- 第11章 - SVD
+- 第12章 - MapReduce
