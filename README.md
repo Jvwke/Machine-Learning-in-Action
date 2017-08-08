@@ -23,5 +23,6 @@
 ### 第四部分：其他工具
 
 - 第13章 - PCA
-- 第11章 - SVD
-- 第12章 - MapReduce
+- 第14章 - SVD
+- 第15章 - MapReduce
+
