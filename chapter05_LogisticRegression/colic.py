@@ -28,10 +28,22 @@ def colicTest():
     print('the error rate of this test is: %f' % errorRate)
     return errorRate
 
-def multiTest():
-    numTests = 10; errorSum = 0.0
+def multiTest(numTests=10):
+    errorSum = 0.0
     for k in range(numTests): errorSum += colicTest()
     print('after %d iterations the average error rate is: %f' % (numTests, errorSum / float(numTests)))
 
 if __name__ == '__main__':
     multiTest()
+
+# the error rate of this test is: 0.328358
+# the error rate of this test is: 0.298507
+# the error rate of this test is: 0.447761
+# the error rate of this test is: 0.388060
+# the error rate of this test is: 0.298507
+# the error rate of this test is: 0.417910
+# the error rate of this test is: 0.432836
+# the error rate of this test is: 0.417910
+# the error rate of this test is: 0.373134
+# the error rate of this test is: 0.283582
+# after 10 iterations the average error rate is: 0.368657
