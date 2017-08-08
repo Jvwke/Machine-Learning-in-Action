@@ -74,12 +74,11 @@ def stocGradAscent1(dataMatrix, classLebels, numIter=150, plot=False):
             error = classLebels[randIndex] - h
             weights = weights + alpha * error * x
             del(dataIndex[randIndex])
+            #added for recording weights' history
             for k in range(0, 3): weights_history[k].append(weights[k])
-
     #plot x0, x1, x2
     if plot:
-        y_labels = ['x0', 'x1', 'x2']
-        col = ['red', 'blue', 'green']
+        y_labels = ['x0', 'x1', 'x2']; col = ['red', 'blue', 'green']
         fig = plt.figure()
         for i in range(3):
             ax = fig.add_subplot(311 + i)
