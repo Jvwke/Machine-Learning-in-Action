@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-def loadDatsSet():
+def loadDataSet():
     dataMat = []
     labelMat = []
     fr = open('testSet.txt')
@@ -27,7 +27,7 @@ def gradAscent(dataMatrix, classLabels):
     return weights
 
 def plotBestFit(weights):
-    dataMat, labelMat = loadDatsSet()
+    dataMat, labelMat = loadDataSet()
     dataArr = np.array(dataMat)
     n = dataArr.shape[0]
     cord = {
@@ -60,16 +60,16 @@ def stocGradAscent0(dataMatrix, classLabels):
         weights = weights + alpha * error * x
     return weights
 
-def stocGradAscent1(dataMatrix, classLebels, numIter=150):
+def stocGradAscent1(dataMatrix, classLebels, numIter=150, plot=False):
     m, n = dataMatrix.shape
-    weights = np.ones((n, 1))
+    weights = np.ones(n)
     weights_history = [[], [], []]
     for j in range(numIter):
         dataIndex = list(range(m))
         for i in range(m):
             alpha = 4 / (1.0 + j + i) + 0.01
             randIndex = np.random.randint(0, len(dataIndex))
-            x = dataMatrix[randIndex].reshape(n, 1)
+            x = dataMatrix[randIndex]
             h = sigmoid(np.sum(x * weights))
             error = classLebels[randIndex] - h
             weights = weights + alpha * error * x
@@ -77,20 +77,21 @@ def stocGradAscent1(dataMatrix, classLebels, numIter=150):
             for k in range(0, 3): weights_history[k].append(weights[k])
 
     #plot x0, x1, x2
-    y_labels = ['x0', 'x1', 'x2']
-    col = ['red', 'blue', 'green']
-    fig = plt.figure()
-    for i in range(3):
-        ax = fig.add_subplot(311 + i)
-        ax.scatter(range(numIter * m), weights_history[i], s=1, c=col[i], marker='s')
-        ax.set_xlabel('iteration'); ax.set_ylabel(y_labels[i])
-    plt.show()
+    if plot:
+        y_labels = ['x0', 'x1', 'x2']
+        col = ['red', 'blue', 'green']
+        fig = plt.figure()
+        for i in range(3):
+            ax = fig.add_subplot(311 + i)
+            ax.scatter(range(numIter * m), weights_history[i], s=1, c=col[i], marker='s')
+            ax.set_xlabel('iteration'); ax.set_ylabel(y_labels[i])
+        plt.show()
 
     return weights
 
 if __name__ == '__main__':
 
-    dataArr, labelMat = loadDatsSet()
+    dataArr, labelMat = loadDataSet()
 
     weights = {
         0: gradAscent(dataArr, labelMat),
@@ -98,4 +99,4 @@ if __name__ == '__main__':
         2: stocGradAscent1(dataArr, labelMat)
     }
 
-    # for i in range(3): plotBestFit(weights[i])
+    for i in range(3): plotBestFit(weights[i])
