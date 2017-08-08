@@ -57,12 +57,13 @@ def stocGradAscent0(dataMatrix, classLabels):
         x = dataMatrix[i].reshape(n, 1)
         h = sigmoid(np.sum(x * weights))
         error = classLabels[i] - h
-        weights += alpha * error * x
+        weights = weights + alpha * error * x
     return weights
 
 def stocGradAscent1(dataMatrix, classLebels, numIter=150):
     m, n = dataMatrix.shape
     weights = np.ones((n, 1))
+    weights_history = [[], [], []]
     for j in range(numIter):
         dataIndex = list(range(m))
         for i in range(m):
@@ -71,8 +72,20 @@ def stocGradAscent1(dataMatrix, classLebels, numIter=150):
             x = dataMatrix[randIndex].reshape(n, 1)
             h = sigmoid(np.sum(x * weights))
             error = classLebels[randIndex] - h
-            weights += alpha * error * x
+            weights = weights + alpha * error * x
             del(dataIndex[randIndex])
+            for k in range(0, 3): weights_history[k].append(weights[k])
+
+    #plot x0, x1, x2
+    y_labels = ['x0', 'x1', 'x2']
+    col = ['red', 'blue', 'green']
+    fig = plt.figure()
+    for i in range(3):
+        ax = fig.add_subplot(311 + i)
+        ax.scatter(range(numIter * m), weights_history[i], s=1, c=col[i], marker='s')
+        ax.set_xlabel('iteration'); ax.set_ylabel(y_labels[i])
+    plt.show()
+
     return weights
 
 if __name__ == '__main__':
@@ -85,4 +98,4 @@ if __name__ == '__main__':
         2: stocGradAscent1(dataArr, labelMat)
     }
 
-    for i in range(3): plotBestFit(weights[i])
+    # for i in range(3): plotBestFit(weights[i])
