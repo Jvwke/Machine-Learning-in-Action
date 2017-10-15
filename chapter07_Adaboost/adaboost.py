@@ -31,7 +31,7 @@ def adaClassify(datToClass, classifierArr):
     m, n = np.shape(dataMatrix)
     aggClassEst = np.mat(np.zeros((m, 1)))
     for i in range(len(classifierArr)):
-        classEst = decisionStump.stumpClasify(dataMatrix,
+        classEst = decisionStump.stumpClassify(dataMatrix,
                                               classifierArr[i]['dim'],
                                               classifierArr[i]['thresh'],
                                               classifierArr[i]['inequal'])
