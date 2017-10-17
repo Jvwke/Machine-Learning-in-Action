@@ -32,6 +32,14 @@ def rssError(yArr, yHatArr):
     return ((yArr - yHatArr)**2).sum()
 
 
+def regularize(xMat):
+    inMat = xMat.copy()
+    inMeans = np.mean(inMat, 0)
+    inVar = np.var(inMat, 0)
+    inMat = (inMat - inMeans) / inVar
+    return inMat
+
+
 def draw(xArr, yArr, ws):
     xMat = np.mat(xArr); yMat = np.mat(yArr)
     fig = plt.figure()
