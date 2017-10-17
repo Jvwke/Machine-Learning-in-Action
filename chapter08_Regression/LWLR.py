@@ -38,8 +38,9 @@ def draw(xArr, yArr):
 
 if __name__ == '__main__':
     xArr, yArr = regression.loadData('ex0.txt')
-    yHat = lwlrTest(xArr, xArr, yArr, 0.003)
-    print(yHat)
-    draw(xArr, yArr)
+    for k in [1.0, 0.01, 0.003]:
+        yHat = lwlrTest(xArr, xArr, yArr, k)
+        # print(yHat)
+        draw(xArr, yArr)
 
 
