@@ -28,6 +28,10 @@ def standRegress(xArr, yArr):
     return ws
 
 
+def rssError(yArr, yHatArr):
+    return ((yArr - yHatArr)**2).sum()
+
+
 def draw(xArr, yArr, ws):
     xMat = np.mat(xArr); yMat = np.mat(yArr)
     fig = plt.figure()
@@ -41,6 +45,7 @@ def draw(xArr, yArr, ws):
     print('correlation coefficients of yHat and yMat:\n', np.corrcoef(yHat.T, yMat))
     ax.plot(xCopy[:, 1], yHat)
     plt.show()
+
 
 if __name__ == '__main__':
     xArr, yArr = loadData('ex0.txt')
