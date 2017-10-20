@@ -38,7 +38,7 @@ def treeForeCast(tree, inData, modelEval=regTreeEval):
     if not regTrees.isTree(tree):
         return modelEval(tree, inData)
     # 二元划分，进入左子树
-    if inData[tree['spInd']] > tree['spVal']:
+    if inData[:, tree['spInd']] > tree['spVal']:
         if regTrees.isTree(tree['left']):  # 左子树仍然是棵树，递归预测
             return treeForeCast(tree['left'], inData, modelEval)
         else:  # 到达叶节点，直接预测
@@ -61,7 +61,7 @@ def createForeCast(tree, testData, modelEval=regTreeEval):
     m = len(testData)  # 测试集大小
     yHat = np.mat(np.zeros((m, 1)))  # 预测值矩阵
     for i in range(m):  # 对每个测试样本进行预测
-        yHat[i, 0] = treeForeCast(tree, testData[i], modelEval)
+        yHat[i, 0] = treeForeCast(tree, np.mat(testData[i]), modelEval)
     return yHat
 
 
