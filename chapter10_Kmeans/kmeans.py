@@ -93,7 +93,7 @@ def biKmeans(dataSet, k, distMeas=distEclud):
     :param dataSet: 数据集
     :param k: 簇个数
     :param distMeas: 距离度量函数
-    :return:
+    :return: k个簇心及每个样本的分配情况
     '''
     m, n = np.shape(dataSet)  # 数据集大小
     clusterAssment = np.mat(np.zeros((m, 2)))  # 分配初始化
@@ -106,8 +106,10 @@ def biKmeans(dataSet, k, distMeas=distEclud):
         bestCentToSplit = -1  # 最优分割簇的索引
         for i in range(len(centList)):  # 遍历每个簇
             # 分离出属于第i个簇的样本
-            ptsInCurrCluster = dataSet[np.nonzero(
-                clusterAssment[:, 0].A == i)[0], :]
+            ptsInCurrCluster = dataSet[np.nonzero(clusterAssment[:, 0].A == i)[0], :]
+            num = np.shape(ptsInCurrCluster)[0]
+            # 若样本数少于2个，不必再二分
+            if num < 2: continue
             # 将第i个簇二分
             centroidMat, splitClustAss = kMeans(ptsInCurrCluster, 2, distMeas)
             # 第i个簇分割后的sse
