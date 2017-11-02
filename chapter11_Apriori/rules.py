@@ -59,16 +59,19 @@ def generateRules(L, supportData, minConf=0.7):
     :return: 规则列表
     '''
     bigRuleList = []
-    # 从L2开始，因为从单元素项集中构建规则
+    # 从L2开始，因为无法从单元素项集中构建规则
     for i in range(1, len(L)):
         # 遍历每一个频繁项集
         for freqSet in L[i]:
             # 遍历频繁项集中的每一个元素，构造规则的后件列表
             # eg. freqSet = {0, 1, 2}, 则H1 = [{0}, {1}, {2}]
             H1 = [frozenset([item]) for item in freqSet]
-            if i > 1:
+            if i > 1: # 频繁项元素大于2个的情况
+                # 规则右件大小为1的情况，形如 {A, B, ...} -> {C}
+                H1 = calcConf(freqSet, H1, supportData, bigRuleList, minConf)
+                # 不断合并规则后件，生成更多的关联规则
                 rulesFromConseq(freqSet, H1, supportData, bigRuleList, minConf)
-            else:
+            else: # 频繁项元素只有2个的情况，直接生成规则，形如 {A} -> {B}
                 calcConf(freqSet, H1, supportData, bigRuleList, minConf)
     return bigRuleList
 
